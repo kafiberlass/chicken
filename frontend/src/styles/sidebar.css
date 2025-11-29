@@ -1,29 +1,62 @@
-/* Стили для переключателя темы в сайдбаре */
-.theme-toggle-sidebar {
+.sidebar {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e2e8f0;
     display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Добавляем прокрутку если контент длинный */
 }
 
-.theme-toggle-btn {
-    background: var(--bg-secondary, #f8fafc);
-    border: 1px solid var(--border-color, #e2e8f0);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
+/* ОСНОВНОЙ КОНТЕНТ - ДОБАВЛЯЕМ ПРАВИЛЬНЫЕ ОТСТУПЫ */
+.main-content-with-sidebar {
+    flex: 1;
+    margin-left: 280px; /* Отступ равный ширине боковой панели */
+    padding: 2rem; /* Добавляем внутренние отступы */
+    min-height: 100vh;
+    background: #f8fafc;
+    width: calc(100% - 280px); /* Ширина минус боковая панель */
 }
 
-.theme-toggle-btn:hover {
-    transform: scale(1.1);
-    background: var(--bg-primary, #ffffff);
+/* Убеждаемся, что контент не прилипает */
+.main-dashboard,
+.client-analysis,
+.model-insights {
+    max-width: none; /* Убираем ограничение ширины */
+    margin: 0; /* Убираем внешние отступы */
+}
+
+/* Стили для контентных блоков */
+.content-container {
+    background: white;
+    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
 }
 
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content-with-sidebar {
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
+    }
+}
