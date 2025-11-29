@@ -1,24 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import ClientList from '../components/client/ClientList';
-import Dashboard from '../components/dashboard/Dashboard.jsx';
+import { ClientList } from '../components/client/ClientList';
+import { Client } from "../components/client/ClientCard";
+import { Dashboard } from "../components/dashboard/Dashboard";
 import '../styles/global.css';
 import { clientApi } from '../services/clientApi';
 
-export default function MainDashboard({ onClientSelect }) {
-    const [view, setView] = useState('overview');
-    const [clients, setClients] = useState([]);
-    const [stats, setStats] = useState({});
+interface MainDashboardProps {
+    onClientSelect: (client: Client) => void;
+}
+
+interface Stats {
+    totalClients?: number;
+    averageIncome?: number;
+}
+
+export function MainDashboard({ onClientSelect }: MainDashboardProps) {
+    const [view, setView] = useState<'overview' | 'clients'>('overview');
+    const [clients, setClients] = useState<Client[]>([]);
+    const [stats, setStats] = useState<Stats>({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadData();
     }, []);
 
     const loadData = async () => {
-        const clientsData = await clientApi.getAll();
-        const statsData = await clientApi.getStats();
-        setClients(clientsData);
-        setStats(statsData);
+        try {
+            setLoading(true);
+            const [clientsData, statsData] = await Promise.all([
+                clientApi.getAll(),
+                clientApi.getStats()
+            ]);
+            setClients(clientsData);
+            setStats(statsData);
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
 
     return (
         <div className="main-dashboard">

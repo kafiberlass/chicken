@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import ClientCard from './ClientCard';
+import { ClientCard, Client } from './ClientCard';
 
-export default function ClientList({ clients, onClientSelect }) {
+interface ClientListProps {
+    clients: Client[];
+    onClientSelect: (client: Client) => void;
+}
+
+export function ClientList({ clients, onClientSelect }: ClientListProps) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClients, setFilteredClients] = useState(clients);
+    const [filteredClients, setFilteredClients] = useState<Client[]>(clients);
 
-    const handleSearch = (term) => {
+    const handleSearch = (term: string) => {
         setSearchTerm(term);
         const filtered = clients.filter(client =>
             client.name.toLowerCase().includes(term.toLowerCase()) ||

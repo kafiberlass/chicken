@@ -1,7 +1,22 @@
-// src/components/client/ClientCard.jsx
-import React from 'react';
+import { Key } from "react";
 
-export default function ClientCard({ client, onSelect }) {
+export interface Client {
+    id: string;
+    name: string;
+    segment: string;
+    age: number;
+    occupation: string;
+    city: string;
+    currentIncome: number;
+}
+
+interface ClientCardProps {
+    key: Key;
+    client: Client;
+    onSelect: (client: Client) => void;
+}
+
+export function ClientCard({ client, onSelect }: ClientCardProps) {
     return (
         <div
             className="client-card"
@@ -25,8 +40,8 @@ export default function ClientCard({ client, onSelect }) {
                 e.currentTarget.style.transform = 'translateY(0)';
             }}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
-                <h3 style={{ margin: 0, color: '#1e293b' }}>{client.name}</h3>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem'}}>
+                <h3 style={{margin: 0, color: '#1e293b'}}>{client.name}</h3>
                 <span style={{
                     background: client.segment === 'vip' ? '#f59e0b' : '#3b82f6',
                     color: 'white',
@@ -35,17 +50,17 @@ export default function ClientCard({ client, onSelect }) {
                     fontSize: '0.8rem',
                     fontWeight: 'bold'
                 }}>
-          {client.segment}
-        </span>
+                    {client.segment}
+                </span>
             </div>
 
-            <div style={{ color: '#64748b', fontSize: '0.9rem' }}>
+            <div style={{color: '#64748b', fontSize: '0.9rem'}}>
                 <div>ID: {client.id}</div>
                 <div>Возраст: {client.age} лет</div>
                 <div>Профессия: {client.occupation}</div>
                 <div>Город: {client.city}</div>
-                <div style={{ marginTop: '0.5rem', fontWeight: 'bold', color: '#059669' }}>
-                    Доход: {client.currentIncome?.toLocaleString('ru-RU')} ₽
+                <div style={{marginTop: '0.5rem', fontWeight: 'bold', color: '#059669'}}>
+                    Доход: {client.currentIncome.toLocaleString('ru-RU')} ₽
                 </div>
             </div>
 
@@ -60,6 +75,10 @@ export default function ClientCard({ client, onSelect }) {
                     borderRadius: '6px',
                     cursor: 'pointer',
                     fontWeight: 'bold'
+                }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onSelect(client);
                 }}
             >
                 Анализировать ›

@@ -1,7 +1,18 @@
-import React from 'react';
+import { Client } from "../components/client/ClientCard";
 
-export default function PredictionResult({ prediction, client }) {
-    if (!prediction) {
+interface PredictionData {
+    predictedIncome: number;
+    currentIncome: number;
+    confidence: number;
+}
+
+interface PredictionResultProps {
+    prediction: PredictionData | null;
+    client: Client | null;
+}
+
+export function PredictionResult({ prediction, client }: PredictionResultProps) {
+    if (!prediction || !client) {
         return (
             <div className="prediction-result empty">
                 <h3>Прогноз дохода клиента</h3>
@@ -21,7 +32,7 @@ export default function PredictionResult({ prediction, client }) {
                 <div className="income-card">
                     <div className="income-label">Текущий доход</div>
                     <div className="income-value current">
-                        {prediction.currentIncome?.toLocaleString('ru-RU')} ₽
+                        {prediction.currentIncome.toLocaleString('ru-RU')} ₽
                     </div>
                 </div>
 
@@ -32,7 +43,7 @@ export default function PredictionResult({ prediction, client }) {
                 <div className="income-card">
                     <div className="income-label">Прогнозируемый доход</div>
                     <div className="income-value predicted">
-                        {prediction.predictedIncome?.toLocaleString('ru-RU')} ₽
+                        {prediction.predictedIncome.toLocaleString('ru-RU')} ₽
                     </div>
                     <div className={`change ${incomeChange >= 0 ? 'positive' : 'negative'}`}>
                         {incomeChange >= 0 ? '+' : ''}{changePercent}%

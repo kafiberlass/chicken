@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import MainDashboard from './pages/MainDashboard';
-import ClientAnalysis from './pages/ClientAnalysis';
-import ModelInsights from './pages/ModelInsights';
+import { MainDashboard } from './pages/MainDashboard';
+import { ClientAnalysis } from './pages/ClientAnalysis';
+import { ModelInsights } from './pages/ModelInsights';
 import './styles/global.css';
 
 function App() {
     const [currentView, setCurrentView] = useState('dashboard');
-    const [selectedClient, setSelectedClient] = useState(null);
+    const [selectedClient, setSelectedClient] = useState<any>(null);
 
-    // Функция для выбора клиента с автоматическим переходом
-    const handleClientSelect = (client) => {
+    const handleClientSelect = (client: any) => {
         setSelectedClient(client);
-        setCurrentView('analysis'); // Автоматически переходим к анализу
+        setCurrentView('analysis');
     };
 
     const renderView = () => {
@@ -44,7 +43,6 @@ function App() {
                     <button
                         className={currentView === 'analysis' ? 'nav-btn active' : 'nav-btn'}
                         onClick={() => setCurrentView('analysis')}
-                        // УБРАЛИ disabled - кнопка всегда доступна
                     >
                         👤 Анализ клиента
                     </button>

@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default function Header() {
+export function Header() {
     return (
         <header style={{
             background: '#1a73e8',

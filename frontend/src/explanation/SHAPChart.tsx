@@ -1,6 +1,13 @@
-import React from 'react';
+interface SHAPFeature {
+    name: string;
+    impact: number;
+}
 
-export default function SHAPChart({ shapValues }) {
+interface SHAPChartProps {
+    shapValues: SHAPFeature[] | null;
+}
+
+export function SHAPChart({ shapValues }: SHAPChartProps) {
     if (!shapValues) return null;
 
     return (
@@ -15,9 +22,9 @@ export default function SHAPChart({ shapValues }) {
                                 className={`impact-bar ${feature.impact > 0 ? 'positive' : 'negative'}`}
                                 style={{ width: `${Math.abs(feature.impact) * 100}%` }}
                             >
-                <span className="impact-value">
-                  {feature.impact > 0 ? '+' : ''}{feature.impact.toFixed(3)}
-                </span>
+                                <span className="impact-value">
+                                    {feature.impact > 0 ? '+' : ''}{feature.impact.toFixed(3)}
+                                </span>
                             </div>
                         </div>
                     </div>

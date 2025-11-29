@@ -1,6 +1,14 @@
-import React from 'react';
+import {FC} from "react";
 
-export default function ProductList({ recommendations }) {
+interface ProductListProps {
+    recommendations: string[];
+}
+
+function ProductCard(props: { product: string, rank: number, key?: number }) {
+    return null;
+}
+
+export const ProductList = ({ recommendations }: ProductListProps) => {
     return (
         <div className="product-list">
             <h3>Рекомендуемые продукты</h3>

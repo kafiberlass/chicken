@@ -1,9 +1,23 @@
-// src/pages/ClientAnalysis.jsx
 import React, { useState, useEffect } from 'react';
 import { predictionApi } from '../services/predictionApi';
+import { Client } from "../components/client/ClientCard";
 
-export default function ClientAnalysis({ client }) {
-    const [prediction, setPrediction] = useState(null);
+interface ClientAnalysisProps {
+    client: Client | null;
+}
+
+interface Prediction {
+    predictedIncome: number;
+    currentIncome: number;
+    confidence: number;
+    shapValues: Array<{
+        name: string;
+        impact: number;
+    }>;
+}
+
+export function ClientAnalysis({ client }: ClientAnalysisProps) {
+    const [prediction, setPrediction] = useState<Prediction | null>(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -13,6 +27,9 @@ export default function ClientAnalysis({ client }) {
     }, [client]);
 
     const loadPrediction = async () => {
+        // ДОБАВЛЯЕМ ПРОВЕРКУ - если client null, выходим из функции
+        if (!client) return;
+
         setLoading(true);
         try {
             const predictionData = await predictionApi.predictIncome(client);
@@ -88,7 +105,6 @@ export default function ClientAnalysis({ client }) {
                     gridTemplateColumns: '1fr 1fr',
                     gap: '2rem'
                 }}>
-                    {/* Прогноз дохода */}
                     <div style={{
                         background: 'white',
                         padding: '2rem',
@@ -152,7 +168,6 @@ export default function ClientAnalysis({ client }) {
                         </div>
                     </div>
 
-                    {/* SHAP объяснения */}
                     <div style={{
                         background: 'white',
                         padding: '2rem',
@@ -174,8 +189,8 @@ export default function ClientAnalysis({ client }) {
                                         color: feature.impact > 0 ? '#059669' : '#dc2626',
                                         fontWeight: 'bold'
                                     }}>
-                    {feature.impact > 0 ? '+' : ''}{feature.impact.toFixed(3)}
-                  </span>
+                                        {feature.impact > 0 ? '+' : ''}{feature.impact.toFixed(3)}
+                                    </span>
                                 </div>
                             ))}
                         </div>

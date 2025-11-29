@@ -1,7 +1,4 @@
-// src/pages/ModelInsights.jsx
-import React from 'react';
-
-export default function ModelInsights() {
+export function ModelInsights() {
     return (
         <div style={{
             background: 'white',

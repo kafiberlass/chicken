@@ -1,7 +1,31 @@
-// src/components/dashboard/Dashboard.jsx
 import React from 'react';
 
-export default function Dashboard({ stats, clients, onClientSelect }) {
+// Определяем интерфейсы прямо здесь
+interface Client {
+    id: string;
+    name: string;
+    age: number;
+    occupation: string;
+    currentIncome: number;
+    city: string;
+    segment: string;
+}
+
+interface Stats {
+    totalClients?: number;
+    predictionsToday?: number;
+    averageConfidence?: number;
+    modelWMAE?: number | string;
+    conversionRate?: number;
+}
+
+interface DashboardProps {
+    stats: Stats;
+    clients: Client[];
+    onClientSelect: (client: Client) => void;
+}
+
+export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
     const metrics = [
         { label: 'Всего клиентов', value: stats.totalClients || 0, icon: '👥', color: '#3b82f6' },
         { label: 'Прогнозов сегодня', value: stats.predictionsToday || 0, icon: '📈', color: '#10b981' },
@@ -62,7 +86,7 @@ export default function Dashboard({ stats, clients, onClientSelect }) {
                     }}>
                         <h3>Последние клиенты</h3>
                         <div style={{ marginTop: '1rem' }}>
-                            {clients.slice(0, 3).map(client => (
+                            {clients.slice(0, 3).map((client: Client) => (
                                 <div
                                     key={client.id}
                                     style={{
