@@ -1,12 +1,4 @@
-import { Client } from '../../types';
-
-interface Stats {
-    totalClients?: number;
-    predictionsToday?: number;
-    averageConfidence?: number;
-    modelWMAE?: number | string;
-    conversionRate?: number;
-}
+import type { Client, Stats } from '../../types';
 
 interface DashboardProps {
     stats: Stats;
@@ -19,7 +11,7 @@ export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
         { label: 'Всего клиентов', value: stats.totalClients || 0, icon: '👥', color: '#3b82f6' },
         { label: 'Прогнозов сегодня', value: stats.predictionsToday || 0, icon: '📈', color: '#10b981' },
         { label: 'Средняя достоверность', value: `${stats.averageConfidence || 0}%`, icon: '🎯', color: '#f59e0b' },
-        { label: 'WMAE модели', value: stats.modelWMAE || '0.124', icon: '🤖', color: '#ef4444' }
+        { label: 'WMAE модели', value: stats.modelWMAE, icon: '🤖', color: '#ef4444' }
     ];
 
     return (

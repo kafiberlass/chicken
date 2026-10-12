@@ -1,48 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ClientList } from '../components/client/ClientList';
-import { Client } from "../types";
-import { Dashboard } from "../components/dashboard/Dashboard";
-import '../styles/global.css';
+import { Dashboard } from '../components/dashboard/Dashboard';
+import { Loader, ErrorState } from '../components/common/Status';
 import { clientApi } from '../services/clientApi';
+import { useApi } from '../hooks/useApi';
+import type { Client } from '../types';
+import '../styles/global.css';
 
 interface MainDashboardProps {
     onClientSelect: (client: Client) => void;
 }
 
-interface Stats {
-    totalClients?: number;
-    averageIncome?: number;
-}
-
 export function MainDashboard({ onClientSelect }: MainDashboardProps) {
     const [view, setView] = useState<'overview' | 'clients'>('overview');
-    const [clients, setClients] = useState<Client[]>([]);
-    const [stats, setStats] = useState<Stats>({});
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        loadData();
-    }, []);
+    // Клиенты и статистика грузятся параллельно одним запросом-обёрткой
+    const { data, error, loading, reload } = useApi(
+        (signal) => Promise.all([clientApi.getAll(signal), clientApi.getStats(signal)]),
+        [],
+    );
 
-    const loadData = async () => {
-        try {
-            setLoading(true);
-            const [clientsData, statsData] = await Promise.all([
-                clientApi.getAll(),
-                clientApi.getStats()
-            ]);
-            setClients(clientsData);
-            setStats(statsData);
-        } catch (error) {
-            console.error('Error loading data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    if (loading) return <Loader text="Загружаем данные клиентов..." />;
+    if (error || !data) return <ErrorState error={error ?? new Error('Нет данных')} onRetry={reload} />;
 
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
+    const [clients, stats] = data;
 
     return (
         <div className="main-dashboard">

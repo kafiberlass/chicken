@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MainDashboard } from './pages/MainDashboard';
 import { ClientAnalysis } from './pages/ClientAnalysis';
 import { ModelInsights } from './pages/ModelInsights';
@@ -10,19 +10,23 @@ import './styles/global.css';
 function App() {
     const [currentView, setCurrentView] = useState<string>('dashboard');
     const [selectedClient, setSelectedClient] = useState<Client | null>(null);
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
-    // Загружаем тему из localStorage при загрузке
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-        if (savedTheme) {
-            setTheme(savedTheme);
+    // Тему читаем из localStorage сразу при создании state (ленивая инициализация),
+    // чтобы не было мигания светлой темы при перезагрузке
+    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+        try {
+            return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+        } catch {
+            return 'light';
         }
-    }, []);
+    });
 
     // Сохраняем тему в localStorage и применяем к документу
     useEffect(() => {
-        localStorage.setItem('theme', theme);
+        try {
+            localStorage.setItem('theme', theme);
+        } catch {
+            // localStorage может быть недоступен (приватный режим) — тема просто не сохранится
+        }
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 

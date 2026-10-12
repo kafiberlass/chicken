@@ -1,45 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import { predictionApi } from '../services/predictionApi';
-import { Client } from "../types";
+import { useApi } from '../hooks/useApi';
+import { Loader, ErrorState } from '../components/common/Status';
+import type { Client, Prediction } from '../types';
 
 interface ClientAnalysisProps {
     client: Client | null;
 }
 
-interface Prediction {
-    predictedIncome: number;
-    currentIncome: number;
-    confidence: number;
-    shapValues: Array<{
-        name: string;
-        impact: number;
-    }>;
-}
-
 export function ClientAnalysis({ client }: ClientAnalysisProps) {
-    const [prediction, setPrediction] = useState<Prediction | null>(null);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        if (client) {
-            loadPrediction();
-        }
-    }, [client]);
-
-    const loadPrediction = async () => {
-        // ДОБАВЛЯЕМ ПРОВЕРКУ - если client null, выходим из функции
-        if (!client) return;
-
-        setLoading(true);
-        try {
-            const predictionData = await predictionApi.predictIncome(client);
-            setPrediction(predictionData);
-        } catch (error) {
-            console.error('Ошибка прогнозирования:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // При смене клиента прошлый запрос прогноза отменяется (см. useApi)
+    const { data: prediction, error, loading, reload } = useApi<Prediction | null>(
+        (signal) => (client ? predictionApi.getForClient(client.id, signal) : Promise.resolve(null)),
+        [client?.id],
+    );
 
     if (!client) {
         return (
@@ -58,20 +31,8 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
         );
     }
 
-    if (loading) {
-        return (
-            <div style={{
-                background: 'white',
-                padding: '2rem',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                textAlign: 'center'
-            }}>
-                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⏳</div>
-                <p>Анализируем данные клиента...</p>
-            </div>
-        );
-    }
+    if (loading) return <Loader text="Анализируем данные клиента..." />;
+    if (error) return <ErrorState error={error} onRetry={reload} />;
 
     const incomeChange = prediction ? prediction.predictedIncome - prediction.currentIncome : 0;
     const changePercent = prediction ? ((incomeChange / prediction.currentIncome) * 100).toFixed(1) : 0;
@@ -119,12 +80,14 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                             marginTop: '1.5rem'
                         }}>
                             <div style={{ textAlign: 'center' }}>
+                                <div style={{ color: '#64748b', fontSize: '0.9rem' }}>Сейчас</div>
                                 <div style={{
                                     fontSize: '1.5rem',
                                     fontWeight: 'bold',
                                     color: '#1e293b',
                                     marginTop: '0.5rem'
                                 }}>
+                                    {prediction.currentIncome.toLocaleString('ru-RU')} ₽
                                 </div>
                             </div>
 
@@ -140,7 +103,7 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                                     color: incomeChange > 0 ? '#059669' : '#dc2626',
                                     marginTop: '0.5rem'
                                 }}>
-                                    {prediction.predictedIncome?.toLocaleString('ru-RU')} ₽
+                                    {prediction.predictedIncome.toLocaleString('ru-RU')} ₽
                                 </div>
                                 <div style={{
                                     color: incomeChange > 0 ? '#059669' : '#dc2626',
@@ -173,8 +136,8 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                     }}>
                         <h3>Факторы влияния</h3>
                         <div style={{ marginTop: '1rem' }}>
-                            {prediction.shapValues?.map((feature, index) => (
-                                <div key={index} style={{
+                            {prediction.shapValues.map((feature) => (
+                                <div key={feature.name} style={{
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',

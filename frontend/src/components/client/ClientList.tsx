@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Client } from '../../types';
 import { ClientCard } from './ClientCard';
 
@@ -9,16 +9,17 @@ interface ClientListProps {
 
 export function ClientList({ clients, onClientSelect }: ClientListProps) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClients, setFilteredClients] = useState<Client[]>(clients);
-
-    const handleSearch = (term: string) => {
-        setSearchTerm(term);
-        const filtered = clients.filter(client =>
-            client.name.toLowerCase().includes(term.toLowerCase()) ||
-            client.id.includes(term)
+    // Отфильтрованный список вычисляется из пропсов, а не хранится в отдельном state:
+    // так он не устаревает, когда список клиентов обновится с сервера.
+    const filteredClients = useMemo(() => {
+        const term = searchTerm.trim().toLowerCase();
+        if (!term) return clients;
+        return clients.filter(
+            (client) =>
+                client.name.toLowerCase().includes(term) ||
+                client.id.toLowerCase().includes(term),
         );
-        setFilteredClients(filtered);
-    };
+    }, [clients, searchTerm]);
 
     return (
         <div className="client-list">
@@ -32,7 +33,7 @@ export function ClientList({ clients, onClientSelect }: ClientListProps) {
                     type="text"
                     placeholder="🔍 Поиск по имени или ID клиента..."
                     value={searchTerm}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
                 />
             </div>
