@@ -24,10 +24,10 @@ export function ClientCard({ client, onSelect }: ClientCardProps) {
             onClick={() => onSelect(client)}
             style={{
                 margin: "10px",
-                background: 'white',
+                background: 'var(--card-bg)',
                 padding: '1rem',
                 borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                boxShadow: 'var(--shadow)',
                 cursor: 'pointer',
                 border: '2px solid transparent',
                 transition: 'all 0.2s'
@@ -42,7 +42,7 @@ export function ClientCard({ client, onSelect }: ClientCardProps) {
             }}
         >
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem'}}>
-                <h3 style={{margin: 0, color: '#1e293b'}}>{client.name}</h3>
+                <h3 style={{margin: 0, color: 'var(--text-primary)'}}>{client.name}</h3>
                 <span style={{
                     background: client.segment === 'vip' ? '#f59e0b' : '#3b82f6',
                     color: 'white',
@@ -55,7 +55,7 @@ export function ClientCard({ client, onSelect }: ClientCardProps) {
                 </span>
             </div>
 
-            <div style={{color: '#64748b', fontSize: '0.9rem'}}>
+            <div style={{color: 'var(--text-secondary)', fontSize: '0.9rem'}}>
                 <div>ID: {client.id}</div>
                 <div>Возраст: {client.age} лет</div>
                 <div>Профессия: {client.occupation}</div>

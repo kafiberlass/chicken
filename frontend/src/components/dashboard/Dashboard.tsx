@@ -26,10 +26,10 @@ export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
                 }}>
                     {metrics.map((metric, index) => (
                         <div key={index} style={{
-                            background: 'white',
+                            background: 'var(--card-bg)',
                             padding: '1.5rem',
                             borderRadius: '8px',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            boxShadow: 'var(--shadow)',
                             borderLeft: `4px solid ${metric.color}`
                         }}>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
@@ -38,12 +38,12 @@ export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
                             <div style={{
                                 fontSize: '1.5rem',
                                 fontWeight: 'bold',
-                                color: '#1e293b',
+                                color: 'var(--text-primary)',
                                 marginBottom: '0.25rem'
                             }}>
                                 {metric.value}
                             </div>
-                            <div style={{ color: '#64748b' }}>
+                            <div style={{ color: 'var(--text-secondary)' }}>
                                 {metric.label}
                             </div>
                         </div>
@@ -53,10 +53,10 @@ export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
 
             <div>
                 <div style={{
-                    background: 'white',
+                    background: 'var(--card-bg)',
                     padding: '1.5rem',
                     borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    boxShadow: 'var(--shadow)'
                 }}>
                     <h3>Последние клиенты</h3>
                     <div style={{ marginTop: '1rem' }}>
@@ -68,14 +68,14 @@ export function Dashboard({ stats, clients, onClientSelect }: DashboardProps) {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     padding: '0.75rem',
-                                    borderBottom: '1px solid #e2e8f0',
+                                    borderBottom: '1px solid var(--border-color)',
                                     cursor: 'pointer'
                                 }}
                                 onClick={() => onClientSelect(client)}
                             >
                                 <div>
                                     <div style={{ fontWeight: 'bold' }}>{client.name}</div>
-                                    <div style={{ color: '#64748b', fontSize: '0.9rem' }}>
+                                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                                         {client.occupation} • {client.currentIncome?.toLocaleString('ru-RU')} ₽
                                     </div>
                                 </div>

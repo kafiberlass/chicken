@@ -1,7 +1,7 @@
 .sidebar {
     width: 280px;
-    background: white;
-    border-right: 1px solid #e2e8f0;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -9,7 +9,7 @@
     left: 0;
     top: 0;
     z-index: 1000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     overflow-y: auto; /* Добавляем прокрутку если контент длинный */
 }
 
@@ -19,7 +19,7 @@
     margin-left: 280px; /* Отступ равный ширине боковой панели */
     padding: 2rem; /* Добавляем внутренние отступы */
     min-height: 100vh;
-    background: #f8fafc;
+    background: var(--surface-muted);
     width: calc(100% - 280px); /* Ширина минус боковая панель */
 }
 
@@ -33,9 +33,9 @@
 
 /* Стили для контентных блоков */
 .content-container {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     padding: 2rem;
     margin-bottom: 2rem;
 }

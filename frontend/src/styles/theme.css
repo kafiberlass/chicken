@@ -1,0 +1,61 @@
+/*
+ * Цвета интерфейса для светлой и тёмной темы.
+ * Компоненты используют только эти переменные, а не конкретные цвета,
+ * поэтому смена атрибута data-theme на <html> перекрашивает всё приложение.
+ */
+:root {
+    color-scheme: light;
+
+    --page-bg: #f8fafc;        /* фон страницы */
+    --card-bg: #ffffff;        /* карточки и панели */
+    --surface-muted: #f8fafc;  /* вложенные блоки внутри карточек */
+    --surface-hover: #e2e8f0;
+    --input-bg: #e4e4e4;
+    --input-bg-focus: #c8c8c8;
+
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-hover: #374151;
+
+    --border-color: #e2e8f0;
+    --border-soft: #f1f5f9;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    --accent-color: #3b82f6;
+    --accent-strong: #1e40af;  /* активный пункт меню */
+    --accent-soft: #eff6ff;    /* фон активного пункта */
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+
+    /* Старые имена, которые использует страница настроек */
+    --bg-primary: var(--card-bg);
+    --bg-secondary: var(--page-bg);
+    --bg-sidebar: var(--card-bg);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --page-bg: #0f172a;
+    --card-bg: #1e293b;
+    --surface-muted: #0f172a;
+    --surface-hover: #334155;
+    --input-bg: #334155;
+    --input-bg-focus: #475569;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-hover: #e2e8f0;
+
+    --border-color: #334155;
+    --border-soft: #334155;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+    --accent-color: #60a5fa;
+    --accent-strong: #93c5fd;
+    --accent-soft: rgba(96, 165, 250, 0.15);
+    --success-color: #34d399;
+    --warning-color: #fbbf24;
+    --error-color: #f87171;
+}

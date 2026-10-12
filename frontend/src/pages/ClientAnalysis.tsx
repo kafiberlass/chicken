@@ -17,14 +17,14 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
     if (!client) {
         return (
             <div style={{
-                background: 'white',
+                background: 'var(--card-bg)',
                 padding: '3rem',
                 borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                boxShadow: 'var(--shadow)',
                 textAlign: 'center'
             }}>
                 <h2>Анализ клиента</h2>
-                <p style={{ color: '#64748b', marginTop: '1rem' }}>
+                <p style={{ color: 'var(--text-secondary)', marginTop: '1rem' }}>
                     Выберите клиента из списка для анализа
                 </p>
             </div>
@@ -40,10 +40,10 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
     return (
         <div className="client-analysis">
             <div style={{
-                background: 'white',
+                background: 'var(--card-bg)',
                 padding: '2rem',
                 borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                boxShadow: 'var(--shadow)',
                 marginBottom: '2rem'
             }}>
                 <h2>Анализ клиента: {client.name}</h2>
@@ -51,7 +51,7 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                     display: 'flex',
                     gap: '2rem',
                     marginTop: '1rem',
-                    color: '#64748b',
+                    color: 'var(--text-secondary)',
                     fontSize: '0.9rem'
                 }}>
                     <span>ID: {client.id}</span>
@@ -66,10 +66,10 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                     gap: '2rem'
                 }}>
                     <div style={{
-                        background: 'white',
+                        background: 'var(--card-bg)',
                         padding: '2rem',
                         borderRadius: '8px',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                        boxShadow: 'var(--shadow)'
                     }}>
                         <h3>Прогноз дохода</h3>
 
@@ -80,11 +80,11 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                             marginTop: '1.5rem'
                         }}>
                             <div style={{ textAlign: 'center' }}>
-                                <div style={{ color: '#64748b', fontSize: '0.9rem' }}>Сейчас</div>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Сейчас</div>
                                 <div style={{
                                     fontSize: '1.5rem',
                                     fontWeight: 'bold',
-                                    color: '#1e293b',
+                                    color: 'var(--text-primary)',
                                     marginTop: '0.5rem'
                                 }}>
                                     {prediction.currentIncome.toLocaleString('ru-RU')} ₽
@@ -96,7 +96,7 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                             </div>
 
                             <div style={{ textAlign: 'center' }}>
-                                <div style={{ color: '#64748b', fontSize: '0.9rem' }}>Прогноз</div>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Прогноз</div>
                                 <div style={{
                                     fontSize: '1.5rem',
                                     fontWeight: 'bold',
@@ -118,7 +118,7 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                         <div style={{
                             marginTop: '1.5rem',
                             padding: '1rem',
-                            background: '#f8fafc',
+                            background: 'var(--surface-muted)',
                             borderRadius: '6px'
                         }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -129,10 +129,10 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                     </div>
 
                     <div style={{
-                        background: 'white',
+                        background: 'var(--card-bg)',
                         padding: '2rem',
                         borderRadius: '8px',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                        boxShadow: 'var(--shadow)'
                     }}>
                         <h3>Факторы влияния</h3>
                         <div style={{ marginTop: '1rem' }}>
@@ -142,9 +142,9 @@ export function ClientAnalysis({ client }: ClientAnalysisProps) {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     padding: '0.75rem 0',
-                                    borderBottom: '1px solid #f1f5f9'
+                                    borderBottom: '1px solid var(--border-color)'
                                 }}>
-                                    <span style={{ color: '#64748b' }}>{feature.name}</span>
+                                    <span style={{ color: 'var(--text-secondary)' }}>{feature.name}</span>
                                     <span style={{
                                         color: feature.impact > 0 ? '#059669' : '#dc2626',
                                         fontWeight: 'bold'

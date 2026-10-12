@@ -6,8 +6,9 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f8fafc;
-    color: #1e293b;
+    background: var(--page-bg);
+    color: var(--text-primary);
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .app {
@@ -48,7 +49,7 @@ body {
 }
 
 .nav-btn.active {
-    background: white;
+    background: var(--card-bg);
     color: #1e40af;
 }
 
@@ -85,12 +86,12 @@ body {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 2rem;
-    background: #f8fafc;
+    background: var(--surface-muted);
     padding: 0.5rem;
     border-radius: 12px;
     width: fit-content;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
 }
 
 .view-switcher button {
@@ -101,7 +102,7 @@ body {
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    color: #64748b;
+    color: var(--text-secondary);
     position: relative;
     overflow: hidden;
 }
@@ -122,14 +123,14 @@ body {
 }
 
 .view-switcher button:hover {
-    background: #e2e8f0;
-    color: #374151;
+    background: var(--surface-hover);
+    color: var(--text-hover);
     transform: translateY(-1px);
 }
 
 .view-switcher button.active {
-    background: white;
-    color: #1e40af;
+    background: var(--card-bg);
+    color: var(--accent-strong);
     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
     transform: translateY(-1px);
 }
@@ -168,21 +169,22 @@ body {
     border-radius: 25px;
     margin-top: 7px;
     margin-bottom: 10px;
-    background: #e4e4e4;
+    background: var(--input-bg);
+    color: var(--text-primary);
     transition: background-color 0.3s;
 }
 
 .search-input:focus {
     border: none;
-    background-color: #c8c8c8;
+    background-color: var(--input-bg-focus);
     outline: none;
 }
 
 /* Боковая панель */
 .sidebar {
     width: 280px;
-    background: white;
-    border-right: 1px solid #e2e8f0;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -190,12 +192,12 @@ body {
     left: 0;
     top: 0;
     z-index: 1000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .sidebar-header {
     padding: 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .sidebar-logo {
@@ -215,13 +217,13 @@ body {
 
 .logo-title {
     font-weight: 700;
-    color: #1e293b;
+    color: var(--text-primary);
     font-size: 1.1rem;
 }
 
 .logo-subtitle {
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--text-secondary);
 }
 
 .sidebar-nav {
@@ -242,7 +244,7 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: #64748b;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
     position: relative;
@@ -251,13 +253,13 @@ body {
 }
 
 .sidebar-item:hover {
-    background: #f8fafc;
-    color: #374151;
+    background: var(--surface-muted);
+    color: var(--text-hover);
 }
 
 .sidebar-item.active {
-    background: #eff6ff;
-    color: #1e40af;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
     font-weight: 600;
 }
 
@@ -269,7 +271,7 @@ body {
     transform: translateY(-50%);
     width: 3px;
     height: 60%;
-    background: #1e40af;
+    background: var(--accent-strong);
     border-radius: 0 2px 2px 0;
 }
 
@@ -298,7 +300,7 @@ body {
 
 .sidebar-footer {
     padding: 1.5rem;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid var(--border-soft);
 }
 
 .user-info {
@@ -310,7 +312,7 @@ body {
 .user-avatar {
     width: 40px;
     height: 40px;
-    background: #f1f5f9;
+    background: var(--border-soft);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -324,13 +326,13 @@ body {
 
 .user-name {
     font-weight: 600;
-    color: #1e293b;
+    color: var(--text-primary);
     font-size: 0.9rem;
 }
 
 .user-role {
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--text-secondary);
 }
 
 /* Адаптация основного контента под боковую панель */
@@ -344,7 +346,7 @@ body {
     margin-left: 280px;
     padding: 0;
     min-height: 100vh;
-    background: #f8fafc;
+    background: var(--surface-muted);
 }
 
 /* Адаптивность */
@@ -370,11 +372,11 @@ body {
         top: 1rem;
         left: 1rem;
         z-index: 1001;
-        background: white;
+        background: var(--card-bg);
         border: none;
         border-radius: 6px;
         padding: 0.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
         cursor: pointer;
     }
 }

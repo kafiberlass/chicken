@@ -1,13 +1,13 @@
 export function ModelInsights() {
     return (
         <div style={{
-            background: 'white',
+            background: 'var(--card-bg)',
             padding: '2rem',
             borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            boxShadow: 'var(--shadow)'
         }}>
             <h2>Анализ ML модели</h2>
-            <p style={{ color: '#64748b', marginTop: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary)', marginTop: '1rem' }}>
                 Здесь будет отображаться информация о производительности модели,
                 метрики качества и другие аналитические данные.
             </p>
@@ -19,25 +19,25 @@ export function ModelInsights() {
                 marginTop: '2rem'
             }}>
                 <div style={{
-                    background: '#f8fafc',
+                    background: 'var(--surface-muted)',
                     padding: '1.5rem',
                     borderRadius: '6px',
                     textAlign: 'center'
                 }}>
                     <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🤖</div>
-                    <div style={{ fontWeight: 'bold', color: '#1e293b' }}>Gradient Boosting</div>
-                    <div style={{ color: '#64748b', fontSize: '0.9rem' }}>Алгоритм</div>
+                    <div style={{ fontWeight: 'bold', color: 'var(--text-primary)' }}>Gradient Boosting</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Алгоритм</div>
                 </div>
 
                 <div style={{
-                    background: '#f8fafc',
+                    background: 'var(--surface-muted)',
                     padding: '1.5rem',
                     borderRadius: '6px',
                     textAlign: 'center'
                 }}>
                     <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📊</div>
-                    <div style={{ fontWeight: 'bold', color: '#1e293b' }}>0.124</div>
-                    <div style={{ color: '#64748b', fontSize: '0.9rem' }}>WMAE</div>
+                    <div style={{ fontWeight: 'bold', color: 'var(--text-primary)' }}>0.124</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>WMAE</div>
                 </div>
 
 
